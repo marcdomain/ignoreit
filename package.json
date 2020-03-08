@@ -1,0 +1,62 @@
+{
+	"name": "ignore_it",
+	"displayName": "ignore_it",
+	"description": "automatically ignore files and folders",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.42.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/marcdomain/ignore_it.git"
+	},
+	"author": "Marcus Chukwuoma <marcus2cu@gmail.com> (https://github.com/marcdomain)",
+	"keywords": [
+		".gitignore",
+		"ignore",
+		"file",
+		"folder"
+	],
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:extension.ignore_it"
+	],
+	"main": "./extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.ignore_it",
+				"title": "ignore_it: auto ignore files and folders"
+			}
+		],
+		"configuration": {
+			"type": "object",
+			"title": "ignore_it: auto ignore files and folders",
+			"properties": {
+				"ignore_it.array": {
+					"type": "string",
+					"default": "",
+					"description": "file or folder to be ignored"
+				}
+			}
+		}
+	},
+	"scripts": {
+		"lint": "eslint .",
+		"pretest": "npm run lint",
+		"test": "node ./test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^7.0.1",
+		"@types/node": "^12.11.7",
+		"@types/vscode": "^1.42.0",
+		"eslint": "^6.8.0",
+		"glob": "^7.1.6",
+		"mocha": "^7.0.1",
+		"typescript": "^3.7.5",
+		"vscode-test": "^1.3.0"
+	}
+}
