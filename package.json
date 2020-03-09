@@ -32,14 +32,10 @@
 			}
 		],
 		"configuration": {
-			"type": "object",
-			"title": "ignore_it: auto ignore files and folders",
-			"properties": {
-				"ignore_it.array": {
-					"type": "string",
-					"default": "",
-					"description": "file or folder to be ignored"
-				}
+			"ignore_it.array": {
+				"type": "array",
+				"description": "Array of strings of files or folders to be ignored",
+				"default": [""]
 			}
 		}
 	},
