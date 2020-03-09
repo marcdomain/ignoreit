@@ -16,6 +16,16 @@ const extension = () => {
     const filesToIgnore = files.filter(file => gitIgnoreContent.indexOf(file) !== -1)
 
     if(filesToIgnore.length) {
+      if (filesToIgnore.find(file => file === '.env')) {
+        const envContent = fs.readFileSync(`${projectWorkspace}/.env`, 'utf8');
+        const envContentArray = envContent.toString().replace(/[^=]*\s/g, '\n');
+
+        try{
+          fs.writeFileSync(`${projectWorkspace}/.env.example`, envContentArray);
+        } catch (e){
+          console.log("Cannot write .env.example file ", e);
+        }
+      }
       if(files.find(file => file === '.gitignore')) {
         try {
           const filesAlreadyIgnored = fs.readFileSync(`${projectWorkspace}/.gitignore`, 'utf8');
