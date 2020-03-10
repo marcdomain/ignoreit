@@ -2,7 +2,7 @@
 	"name": "ignore_it",
 	"displayName": "ignore_it",
 	"description": "automatically ignore files and folders",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.42.0"
 	},
@@ -10,7 +10,9 @@
 		"type": "git",
 		"url": "https://github.com/marcdomain/ignore_it.git"
 	},
+	"icon": "ignore_it.png",
 	"author": "Marcus Chukwuoma <marcus2cu@gmail.com> (https://github.com/marcdomain)",
+	"license": "MIT",
 	"keywords": [
 		".gitignore",
 		"ignore",
@@ -34,8 +36,8 @@
 		"configuration": {
 			"ignore_it.array": {
 				"type": "array",
-				"description": "Array of strings of files or folders to be ignored",
-				"default": [""]
+				"default": [".env", "node_modules", "coverage"],
+				"description": "Array of strings of files or folders to be ignored"
 			}
 		}
 	},

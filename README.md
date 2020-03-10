@@ -1,20 +1,20 @@
-# ignore_it README
+# ignore_it
 
-This extension "ignore_it" enables you to automatically ignore files and folders in your project workspace.
+This extension enables you to automatically ignore files and folders in your project workspace.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
+Go to your VSCODE settings.json file and add the key-value pair you wish to track in your `.gitignore` file. For example
+```json
+"ignore_it.array": [".env", "node_modules", "coverage"]
+```
+The key should be `ignore_it.array`, while the value should be an array of files or folders you wish to ignore.
 
 \!\[feature X\]\(images/feature-x.png\)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+This extension works when you're working in a git repository on VSCODE.
 
 ## Extension Settings
 
@@ -33,21 +33,9 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+Initial release
 
 ### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
 
 ## Working with Markdown
 
