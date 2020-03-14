@@ -3,6 +3,8 @@
 	"displayName": "ignore_it",
 	"description": "automatically ignore files and folders",
 	"version": "1.0.0",
+	"publisher": "marcdomain)",
+	"author": "Marcus Chukwuoma <marcus2cu@gmail.com> (https://github.com/marcdomain)",
 	"engines": {
 		"vscode": "^1.42.0"
 	},
@@ -10,14 +12,20 @@
 		"type": "git",
 		"url": "https://github.com/marcdomain/ignore_it.git"
 	},
-	"icon": "ignore_it.png",
-	"author": "Marcus Chukwuoma <marcus2cu@gmail.com> (https://github.com/marcdomain)",
+	"bugs": {
+		"url": "https://github.com/marcdomain/ignore_it.git/issues"
+	},
+	"homepage": "https://github.com/marcdomain/ignore_it.git#readme",
+	"icon": "./assets/ignore_it.png",
 	"license": "MIT",
 	"keywords": [
 		".gitignore",
 		"ignore",
 		"file",
-		"folder"
+		"folder",
+		"symlink",
+		".env",
+		".env.example"
 	],
 	"categories": [
 		"Other"
@@ -33,7 +41,29 @@
 				"title": "ignore_it: auto ignore files and folders"
 			}
 		],
+		"keybindings": [
+			{
+				"command": "extension.ignore_it",
+				"key": "ctrl+shift+i",
+				"mac": "cmd+shift+i",
+				"when": "editorFocus"
+			},
+			{
+				"command": "extension.ignore_it",
+				"key": "ctrl+shift+i",
+				"mac": "cmd+shift+i",
+				"when": "explorerViewletVisible"
+			},
+			{
+				"command": "extension.ignore_it",
+				"key": "ctrl+shift+i",
+				"mac": "cmd+shift+i",
+				"when": "terminalIsOpen"
+			}
+		],
 		"configuration": {
+			"type": "object",
+			"title": "ignore_it: Example Configuration",
 			"ignore_it.array": {
 				"type": "array",
 				"default": [".env", "node_modules", "coverage"],

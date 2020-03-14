@@ -14,15 +14,17 @@ const extension = () => {
     }
 
     if (files.find(file => file === '.git')) {
+      vscode.window.showInformationMessage('ignore_it extension is activated');
       const filesToIgnore = files.filter(file => gitIgnoreContent.indexOf(file) !== -1)
 
       if(filesToIgnore.length) {
         if (filesToIgnore.find(file => file === '.env')) {
           const envContent = fs.readFileSync(`${projectWorkspace}/.env`, 'utf8');
-          const envContentArray = envContent.toString().replace(/[^=]*\s/g, '\n');
+          const envContentArray = (envContent.toString() + '\n').replace(/[^=]*\s/g, '\n');
 
           try{
             fs.writeFileSync(`${projectWorkspace}/.env.example`, envContentArray);
+            vscode.window.showInformationMessage('symlinked .env <=> .env.example');
           } catch (e){
             console.log("Cannot write .env.example file ", e);
           }
