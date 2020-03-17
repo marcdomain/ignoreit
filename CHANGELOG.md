@@ -11,3 +11,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [1.0.1]
 
 - Second release of ignoreit extension
+
+## [1.0.2]
+
+- Third release of ignoreit extension
