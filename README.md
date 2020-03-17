@@ -4,7 +4,7 @@ This extension helps you to automatically ignore files and folders in your proje
 
 ## Features
 
-* Navagate to vscode `settings.json` and ensure you have `"ignoreit.array": [".env", "node_modules", "coverage"]` as one of the key-value pairs. The array is a list of files and folders you wish to always ignore. Feel free to modify it.
+* Install and navigate to vscode `settings.json` and ensure you have `"ignoreit.array": [".env", "node_modules", "coverage"]` as one of the key-value pairs. The array is a list of files and folders you wish to always ignore. Feel free to modify it.
 * If any of the files or folders specified in the array exists in your project directory, `ignoreit` extension will add it to the `.gitignore` file.
 * If `.gitigore` file does not exist in your project directory, `ignoreit` extension will create a `.gitignore` file and fill in the files you're to ignore.
 * The `.gitignore` content will be the files in your project directory that corresponds to the `ignoreit.array`
