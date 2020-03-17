@@ -1,0 +1,90 @@
+{
+	"name": "ignoreit",
+	"displayName": "ignoreit",
+	"description": "automatically ignore files and folders",
+	"version": "1.0.0",
+	"publisher": "marcdomain",
+	"author": "Marcus Chukwuoma <marcus2cu@gmail.com> (https://github.com/marcdomain)",
+	"engines": {
+		"vscode": "^1.42.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/marcdomain/ignoreit.git"
+	},
+	"bugs": {
+		"url": "https://github.com/marcdomain/ignoreit.git/issues"
+	},
+	"homepage": "https://github.com/marcdomain/ignoreit.git#readme",
+	"icon": "assets/ignoreit.png",
+	"license": "MIT",
+	"keywords": [
+		".gitignore",
+		"ignore",
+		"file",
+		"folder",
+		"symlink",
+		".env",
+		".env.example"
+	],
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.ignoreit",
+				"title": "ignoreit: auto ignore files and folders"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "extension.ignoreit",
+				"key": "ctrl+shift+i",
+				"mac": "cmd+shift+i",
+				"when": "editorFocus"
+			},
+			{
+				"command": "extension.ignoreit",
+				"key": "ctrl+shift+i",
+				"mac": "cmd+shift+i",
+				"when": "explorerViewletVisible"
+			},
+			{
+				"command": "extension.ignoreit",
+				"key": "ctrl+shift+i",
+				"mac": "cmd+shift+i",
+				"when": "terminalIsOpen"
+			}
+		],
+		"configuration": {
+			"type": "object",
+			"title": "ignoreit: Example Configuration",
+			"ignoreit.array": {
+				"type": "array",
+				"default": [".env", "node_modules", "coverage"],
+				"description": "Array of strings of files or folders to be ignored"
+			}
+		}
+	},
+	"scripts": {
+		"lint": "eslint .",
+		"pretest": "npm run lint",
+		"test": "node ./test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^7.0.1",
+		"@types/node": "^12.11.7",
+		"@types/vscode": "^1.42.0",
+		"eslint": "^6.8.0",
+		"glob": "^7.1.6",
+		"mocha": "^7.0.1",
+		"typescript": "^3.7.5",
+		"vscode-test": "^1.3.0"
+	}
+}
