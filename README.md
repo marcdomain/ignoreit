@@ -1,6 +1,6 @@
 # ignoreit
 
-This extension helps you to automatically ignore files and folders in your project workspace.
+VSCODE Extension that helps you to automatically ignore files and folders in your project workspace.
 
 ## Features
 
@@ -50,4 +50,4 @@ Fourth release
 * [GitHub](https://www.github.com/marcdomain)
 * [Twitter](https://www.twitter.com/marcdomain)
 
-**Enjoy!**
+**Enjoy👍🏽** [https://marketplace.visualstudio.com/items?itemName=marcdomain.ignoreit](https://marketplace.visualstudio.com/items?itemName=marcdomain.ignoreit)
