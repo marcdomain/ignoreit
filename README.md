@@ -30,19 +30,23 @@ No known issues
 
 Initial release
 
-### 1.0.0
+### 1.0.1
 
 Second release
 
-### 1.0.1
+### 1.0.2
 
 Third release
 
-### 1.0.2
+### 1.0.3
 
 Fourth release
 
-### 1.0.3
+### 1.0.4
+
+Fifth release
+
+### 1.0.5
 
 ### Contact
 

@@ -57,7 +57,7 @@ const extension = () => {
         return true;
       }
     } else {
-      vscode.window.showInformationMessage('This is not a git repo');
+      // vscode.window.showInformationMessage('This workspace is not a git repo');
       return true;
     }
   })

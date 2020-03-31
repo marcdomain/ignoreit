@@ -4,8 +4,6 @@ All notable changes to the `ignoreit` extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [1.0.0]
-
 - Initial release of ignoreit extension
 
 ## [1.0.1]
@@ -17,5 +15,13 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Third release of ignoreit extension
 
 ## [1.0.3]
+
+- Fourth release of ignoreit extension
+
+## [1.0.4]
+
+- Fifth release of ignoreit extension
+
+## [1.0.5]
 
 - Fourth release of ignoreit extension
