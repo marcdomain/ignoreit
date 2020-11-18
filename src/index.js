@@ -19,7 +19,7 @@ const extension = () => {
       if(filesToIgnore.length) {
         if (filesToIgnore.find(file => file === '.env')) {
           const envContent = fs.readFileSync(`${projectWorkspace}/.env`, 'utf8');
-          const envContentArray = (envContent.toString() + '\n').replace(/[^=]*\s/g, '\n');
+          const envContentArray = (envContent.toString()).replace(/[=].*/g, '=');
 
           try{
             fs.writeFileSync(`${projectWorkspace}/.env.example`, envContentArray);
