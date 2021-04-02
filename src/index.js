@@ -13,34 +13,33 @@ const extension = () => {
     }
 
     if (files.find(file => file === '.git')) {
-      const filesToIgnore = files.filter(file => ignoreItArray.indexOf(file) !== -1)
+      const filesToIgnore = files.filter(file => ignoreItArray.indexOf(file) !== -1);
 
       if(filesToIgnore.length) {
         if (filesToIgnore.find(file => file === '.env')) {
-          const envContent = fs.readFileSync(`${projectWorkspace}/.env`, 'utf8');
-          const envContentArray = (envContent.toString()).replace(/[=].*/g, '=');
-
           try {
+            const envContent = fs.readFileSync(`${projectWorkspace}/.env`, 'utf8');
+            const envContentArray = (envContent.toString()).replace(/[=].*/g, '=');
             fs.writeFileSync(`${projectWorkspace}/.env.example`, envContentArray);
           } catch (e) {
             console.log("Cannot write .env.example file: ", e);
           }
         }
-        if(files.find(file => file === '.gitignore')) {
+        if (files.find(file => file === '.gitignore')) {
           try {
             const gitignoreContent = fs.readFileSync(`${projectWorkspace}/.gitignore`, 'utf8');
-            const filesInitiallyIgnored = gitignoreContent.toString().split('\n').filter(Boolean);
+            const gitIgnoreArray = gitignoreContent.toString().split('\n');
+            const filesInitiallyIgnored = gitIgnoreArray.filter(Boolean);
 
-            filesToIgnore.forEach((file) => {
-              if (filesInitiallyIgnored.indexOf(file) === -1) {
+            filesToIgnore.filter(v => filesInitiallyIgnored.indexOf(v) === -1)
+              .forEach(file => {
                 fs.appendFile(`${projectWorkspace}/.gitignore`, '\n' + file, err => {
                   if(err) {
                     return vscode.window.showErrorMessage(`Error occurred: ${err}`);
                   }
                   vscode.window.showInformationMessage(`${file} added to .gitignore`);
-                })
-              }
-            })
+                });
+              });
           } catch(e) {
             console.log('Error:', e.stack);
           }
