@@ -14,10 +14,7 @@ const extension = () => {
     }
 
     if (files.find(file => file === '.git')) {
-      const filesToIgnore = files.filter(file => {
-        const formatFile = file.replace(/^\/|\/\*?$/g, '');
-        return formatIgnoreItArray.indexOf(formatFile) !== -1
-      });
+      const filesToIgnore = files.filter(file => formatIgnoreItArray.indexOf(file) !== -1);
 
       if(filesToIgnore.length) {
         if (filesToIgnore.find(file => file === '.env')) {
