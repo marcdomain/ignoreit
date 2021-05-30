@@ -5,6 +5,7 @@ const path = require('path');
 const projectWorkspace = vscode.workspace.workspaceFolders[0].uri.toString().split(':')[1];
 const workbenchConfig = vscode.workspace.getConfiguration('ignoreit')
 const ignoreItArray = workbenchConfig.get('array');
+const formatIgnoreItArray = ignoreItArray.map(v => v.replace(/^\/|\/\*?$/g, ''));
 
 const extension = () => {
   fs.readdir(projectWorkspace, (err, files) => {
@@ -13,7 +14,10 @@ const extension = () => {
     }
 
     if (files.find(file => file === '.git')) {
-      const filesToIgnore = files.filter(file => ignoreItArray.indexOf(file) !== -1);
+      const filesToIgnore = files.filter(file => {
+        const formatFile = file.replace(/^\/|\/\*?$/g, '');
+        return formatIgnoreItArray.indexOf(formatFile) !== -1
+      });
 
       if(filesToIgnore.length) {
         if (filesToIgnore.find(file => file === '.env')) {
@@ -29,7 +33,8 @@ const extension = () => {
           try {
             const gitignoreContent = fs.readFileSync(`${projectWorkspace}/.gitignore`, 'utf8');
             const gitIgnoreArray = gitignoreContent.toString().split('\n');
-            const filesInitiallyIgnored = gitIgnoreArray.filter(Boolean);
+            const filesInitiallyIgnored = gitIgnoreArray.filter(Boolean)
+              .map(v => v.replace(/^\/|\/\*?$/g, ''));
 
             filesToIgnore.filter(v => filesInitiallyIgnored.indexOf(v) === -1)
               .forEach(file => {
