@@ -64,14 +64,16 @@
 		"configuration": {
 			"type": "object",
 			"title": "ignoreit: Example Configuration",
-			"ignoreit.array": {
-				"type": "array",
-				"default": [
-					".env",
-					"node_modules",
-					"coverage"
-				],
-				"description": "Array of strings of files or folders to be ignored"
+		        "properties": {
+				"ignoreit.array": {
+					"type": "array",
+					"default": [
+						".env",
+						"node_modules",
+						"coverage"
+					],
+					"description": "Array of strings of files or folders to be ignored"
+				}
 			}
 		}
 	},
