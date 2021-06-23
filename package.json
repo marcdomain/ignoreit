@@ -63,8 +63,8 @@
 		],
 		"configuration": {
 			"type": "object",
-			"title": "ignoreit: Example Configuration",
-		  "properties": {
+			"title": "ignoreit",
+			"properties": {
 				"ignoreit.array": {
 					"type": "array",
 					"items": {
