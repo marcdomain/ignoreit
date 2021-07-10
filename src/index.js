@@ -5,7 +5,7 @@ const path = require('path');
 const projectWorkspace = vscode.workspace.workspaceFolders[0].uri.toString().split(':')[1];
 const workbenchConfig = vscode.workspace.getConfiguration('ignoreit')
 const ignoreItArray = workbenchConfig.get('array');
-const formatIgnoreItArray = ignoreItArray.map(v => v.replace(/^(\*?)+\/|\/(\*?)+$/g, ''));
+const formatIgnoreItArray = ignoreItArray.map(v => v.replace(/^(\*?)+\/|\/(\*?)+|\.\//g, ''));
 
 const extension = () => {
   fs.readdir(projectWorkspace, (err, files) => {
