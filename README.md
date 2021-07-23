@@ -30,6 +30,6 @@ No known issues
 
 * [LinkedIn](https://www.linkedin.com/in/marcdomain)
 * [GitHub](https://www.github.com/marcdomain)
-* [Twitter](https://www.twitter.com/marcdomain)
+* [Website](https://www.marcdomain.dev)
 
 **Enjoy👍🏽** [https://marketplace.visualstudio.com/items?itemName=marcdomain.ignoreit](https://marketplace.visualstudio.com/items?itemName=marcdomain.ignoreit)
