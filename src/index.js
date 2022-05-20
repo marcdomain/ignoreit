@@ -2,10 +2,10 @@ const vscode = require('vscode');
 const fs = require('fs');
 const path = require('path');
 const projectWorkspace = vscode.workspace.workspaceFolders[0].uri.toString().split(':')[1];
-const workbenchConfig = vscode.workspace.getConfiguration('ignoreit')
+const workbenchConfig = vscode.workspace.getConfiguration('ignoreit');
 const ignoreItArray = workbenchConfig.get('array').map(v => v.replace(/^(\*?)+\/|\/(\*?)+|\.\//g, ''));
 
-const extension = async () => {
+exports.extension = async () => {
   try {
     const workspace = fs.readdirSync(projectWorkspace);
 
@@ -15,8 +15,17 @@ const extension = async () => {
       if(filesToIgnore.length) {
         if (filesToIgnore.find(f => f === '.env')) {
           const envContent = fs.readFileSync(`${projectWorkspace}/.env`, 'utf8');
-          const envContentArray = (envContent.toString()).replace(/[=].*/g, '=');
-          fs.writeFileSync(`${projectWorkspace}/.env.example`, envContentArray);
+          const envContentString = (envContent.toString()).replace(/[=].*/g, '=');
+
+          if (workspace.find(f => f === '.env.example')) {
+            const envContentArray = envContentString.split('\n').filter(Boolean);
+            const envExample = fs.readFileSync(`${projectWorkspace}/.env.example`, 'utf8').split('\n').filter(Boolean);
+
+            if (envContentArray.filter(v => envExample.indexOf(v) === -1).length) {
+              fs.writeFileSync(`${projectWorkspace}/.env.example`, envContentString);
+            }
+          }
+          else fs.writeFileSync(`${projectWorkspace}/.env.example`, envContentString);
         }
         if (workspace.find(f => f === '.gitignore')) {
           const gitignoreContent = fs.readFileSync(`${projectWorkspace}/.gitignore`, 'utf8');
@@ -31,7 +40,8 @@ const extension = async () => {
               fs.appendFileSync(`${projectWorkspace}/.gitignore`, '\n' + file);
               vscode.window.showInformationMessage(`${file} added to .gitignore`);
             });
-        } else {
+        }
+        if (workspace.indexOf('.gitignore') === -1) {
           fs.writeFileSync(path.join(projectWorkspace, '.gitignore'), filesToIgnore.join('\n'));
           vscode.window.showInformationMessage(`${filesToIgnore.join(', ')} added to .gitignore`);
         }
@@ -41,5 +51,3 @@ const extension = async () => {
     return vscode.window.showErrorMessage(`Error occurred: ${error}`);
   }
 }
-
-module.exports = extension;

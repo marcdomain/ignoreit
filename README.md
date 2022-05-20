@@ -1,10 +1,13 @@
 # ignoreit
 
 VSCODE Extension that helps you to automatically ignore files and folders in your project workspace.
-## Install 
+
+## Install
+
 [https://marketplace.visualstudio.com/items?itemName=marcdomain.ignoreit](https://marketplace.visualstudio.com/items?itemName=marcdomain.ignoreit)
 
 ## Features
+
 By default, the following files would be ignored with the help of ignoreit. You can add more files to it as you wish.
 
 ```json
@@ -27,6 +30,7 @@ This extension works when you're working in a git repository on VSCODE.
 ## Extension Settings
 
 This extension requires that `ignoreit.array` key be added to your VSCODE `settings.json` file and value should be an array of files you wish to automatically add to `.gitignore` file in all your project (if the files or folders exist in your project). See example below
+
 ```json
 "ignoreit.array": [".env", "node_modules", "coverage"]
 ```
@@ -41,4 +45,6 @@ No known issues
 * [GitHub](https://www.github.com/marcdomain)
 * [Website](https://www.marcdomain.dev)
 
-**Enjoy👍🏽** [https://marketplace.visualstudio.com/items?itemName=marcdomain.ignoreit](https://marketplace.visualstudio.com/items?itemName=marcdomain.ignoreit)
+### If you would like to buy me coffee ☕️ 😍
+
+https://www.buymeacoffee.com/marcdomain

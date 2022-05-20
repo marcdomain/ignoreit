@@ -6,4 +6,4 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Current release of ignoreit extension
 
-## [4.3.2]
+## [7.1.0]
