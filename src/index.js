@@ -1,7 +1,10 @@
 const vscode = require('vscode');
 const fs = require('fs');
 const path = require('path');
-const projectWorkspace = vscode.workspace.workspaceFolders[0].uri.toString().split(':')[1];
+const projectWorkspace = vscode.workspace.workspaceFolders[0].uri.toString().split(':')[1]
+  .replace(/%20/g, '\ ')
+  .replace(/\/.*\/Users/, '///Users');
+
 const workbenchConfig = vscode.workspace.getConfiguration('ignoreit');
 const ignoreItArray = workbenchConfig.get('array').map(v => v.replace(/^(\*?)+\/|\/(\*?)+|\.\//g, ''));
 

@@ -2,7 +2,7 @@
 	"name": "ignoreit",
 	"displayName": "ignoreit",
 	"description": "automatically ignore files and folders",
-	"version": "7.1.0",
+	"version": "7.2.0",
 	"publisher": "marcdomain",
 	"author": "Marcus Chukwuoma <marcus2cu@gmail.com> (https://github.com/marcdomain)",
 	"engines": {
@@ -76,11 +76,6 @@
 			}
 		}
 	},
-	"scripts": {
-		"lint": "eslint .",
-		"pretest": "npm run lint",
-		"test": "node ./test/runTest.js"
-	},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
 		"@types/mocha": "^7.0.1",
@@ -88,7 +83,6 @@
 		"@types/vscode": "^1.42.0",
 		"eslint": "^6.8.0",
 		"glob": "^7.1.6",
-		"mocha": "^7.0.1",
 		"typescript": "^3.7.5",
 		"vscode-test": "^1.3.0"
 	}
