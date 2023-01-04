@@ -2,7 +2,7 @@
 	"name": "ignoreit",
 	"displayName": "ignoreit",
 	"description": "automatically ignore files and folders",
-	"version": "7.3.0",
+	"version": "7.3.2",
 	"publisher": "marcdomain",
 	"author": "Marcus Chukwuoma <marcus2cu@gmail.com> (https://github.com/marcdomain)",
 	"engines": {

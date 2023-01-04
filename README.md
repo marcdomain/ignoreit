@@ -20,7 +20,8 @@ By default, the following files would be ignored with the help of ignoreit. You 
 
 https://user-images.githubusercontent.com/25563661/210540446-48010e02-e50b-4109-bc2f-b92021474824.mp4
 
-* Install and navigate to vscode `settings.json` and ensure you have `"ignoreit.array": [".env", "node_modules", "coverage"]` as one of the key-value pairs. The array is a list of files and folders you wish to always ignore. Feel free to modify it.
+* Install and navigate to vscode `settings` or `settings.json` page.
+* Set your `"ignoreit.array": [".env"]` to include the files and folders you'd always want to ignore. Feel free to modify it anytime.
 * If any of the files or folders specified in the array exists in your project directory, `ignoreit` extension will add it to the `.gitignore` file.
 * If `.gitignore` file does not exist in your project directory, `ignoreit` extension will create a `.gitignore` file and fill in the files you're to ignore.
 * The `.gitignore` content will be the files in your project directory that corresponds to the `ignoreit.array`
