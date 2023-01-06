@@ -13,7 +13,20 @@ exports.extension = async () => {
     const workspace = fs.readdirSync(projectWorkspace);
 
     if (workspace.find(f => f === '.git')) {
-      const filesToIgnore = workspace.filter(f => ignoreItArray.indexOf(f) !== -1);
+      let filesToIgnore = workspace.filter(f => ignoreItArray.indexOf(f) !== -1);
+      const filesWithWildCard = [];
+
+      ignoreItArray.filter(f => f.startsWith('*'))
+        .forEach(a => {
+          const [, nameEnding] = a.split('*');
+
+          if (workspace.find(t => t.endsWith(nameEnding))) {
+            filesWithWildCard.push(a);
+          }
+        }
+      );
+
+      filesToIgnore = filesToIgnore.concat(filesWithWildCard);
 
       if(filesToIgnore.length) {
         if (filesToIgnore.find(f => f === '.env')) {
