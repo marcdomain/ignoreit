@@ -1,6 +1,5 @@
 const vscode = require('vscode');
 const {extension} = require('./src');
-
 /**
  * @param {vscode.ExtensionContext} context
  */
@@ -17,9 +16,7 @@ const activate = (context) => {
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(watcher);
 }
-
 const deactivate = () => {}
-
 module.exports = {
 	activate,
 	deactivate
