@@ -1,69 +1,86 @@
 const vscode = require('vscode');
 const fs = require('fs');
 const path = require('path');
-const projectWorkspace = vscode.workspace.workspaceFolders[0].uri.toString().split(':')[1]
-  .replace(/%20/g, '\ ')
-  .replace(/\/.*%3A\//, '///');
+const micromatch = require('micromatch');
 
+const projectWorkspace = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
 const workbenchConfig = vscode.workspace.getConfiguration('ignoreit');
-const ignoreItArray = workbenchConfig.get('array').map(v => v.replace(/^(\*?)+\/|\/(\*?)+|\.\//g, ''));
+const ignoreItArray = workbenchConfig.get('array') || []
+const updateEnvExample = workbenchConfig.get('updateEnvExample');
 
 exports.extension = async () => {
   try {
-    const workspace = fs.readdirSync(projectWorkspace);
+    if (!projectWorkspace) {
+      vscode.window.showErrorMessage('No workspace folder found');
+      return;
+    }
 
-    if (workspace.find(f => f === '.git')) {
-      let filesToIgnore = workspace.filter(f => ignoreItArray.indexOf(f) !== -1);
-      const filesWithWildCard = [];
+    const workspace = fs.readdirSync(projectWorkspace); // top-level files & folders
+    if (!workspace.includes('.git')) return;
 
-      ignoreItArray.filter(f => f.startsWith('*'))
-        .forEach(a => {
-          const [, nameEnding] = a.split('*');
+    // ✅ Update .env.example if needed
+    if (
+      ignoreItArray.includes('.env') &&
+      workspace.includes('.env') &&
+      updateEnvExample
+    ) {
+      const envPath = path.join(projectWorkspace, '.env');
+      const envExamplePath = path.join(projectWorkspace, '.env.example');
 
-          if (workspace.find(t => t.endsWith(nameEnding))) {
-            filesWithWildCard.push(a);
-          }
+      const envContent = fs.readFileSync(envPath, 'utf8');
+      const envContentString = envContent.replace(/[=].*/g, '=');
+
+      if (fs.existsSync(envExamplePath)) {
+        const envExample = fs.readFileSync(envExamplePath, 'utf8').split('\n').filter(Boolean);
+        const envContentArray = envContentString.split('\n').filter(Boolean);
+
+        const isDifferent = envContentArray.some(line => !envExample.includes(line));
+        if (isDifferent) {
+          fs.writeFileSync(envExamplePath, envContentString);
         }
-      );
-
-      filesToIgnore = filesToIgnore.concat(filesWithWildCard);
-
-      if(filesToIgnore.length) {
-        if (filesToIgnore.find(f => f === '.env')) {
-          const envContent = fs.readFileSync(`${projectWorkspace}/.env`, 'utf8');
-          const envContentString = (envContent.toString()).replace(/[=].*/g, '=');
-
-          if (workspace.find(f => f === '.env.example')) {
-            const envContentArray = envContentString.split('\n').filter(Boolean);
-            const envExample = fs.readFileSync(`${projectWorkspace}/.env.example`, 'utf8').split('\n').filter(Boolean);
-
-            if (envContentArray.filter(v => envExample.indexOf(v) === -1).length) {
-              fs.writeFileSync(`${projectWorkspace}/.env.example`, envContentString);
-            }
-          }
-          else fs.writeFileSync(`${projectWorkspace}/.env.example`, envContentString);
-        }
-        if (workspace.find(f => f === '.gitignore')) {
-          const gitignoreContent = fs.readFileSync(`${projectWorkspace}/.gitignore`, 'utf8');
-          const gitIgnoreArray = gitignoreContent
-            .toString()
-            .split('\n')
-            .filter(Boolean)
-            .map(v => v.replace(/^(\*?)+\/|\/(\*?)+$/g, ''));
-
-          filesToIgnore.filter(v => gitIgnoreArray.indexOf(v) === -1)
-            .forEach(file => {
-              fs.appendFileSync(`${projectWorkspace}/.gitignore`, '\n' + file);
-              vscode.window.showInformationMessage(`${file} added to .gitignore`);
-            });
-        }
-        if (workspace.indexOf('.gitignore') === -1) {
-          fs.writeFileSync(path.join(projectWorkspace, '.gitignore'), filesToIgnore.join('\n'));
-          vscode.window.showInformationMessage(`${filesToIgnore.join(', ')} added to .gitignore`);
-        }
+      } else {
+        fs.writeFileSync(envExamplePath, envContentString);
       }
     }
+
+    // ✅ Find which patterns match at least one file
+    const matchedPatterns = ignoreItArray.filter(pattern =>
+      workspace.some(file => micromatch.isMatch(file, pattern))
+    );
+
+    if (!matchedPatterns.length) return;
+
+    const gitignorePath = path.join(projectWorkspace, '.gitignore');
+    const gitignoreExists = workspace.includes('.gitignore');
+    let existingGitignorePatterns = [];
+
+    if (gitignoreExists) {
+      const gitignoreContent = fs.readFileSync(gitignorePath, 'utf8');
+      existingGitignorePatterns = gitignoreContent
+        .split('\n')
+        .map(line => line.trim())
+        .filter(line => line && !line.startsWith('#'))
+        .map(line => line.split('#')[0].trim());
+    }
+
+    // ✅ Filter patterns that are not already in .gitignore
+    const newPatternsToAdd = matchedPatterns.filter(
+      pattern => !micromatch.any(pattern, existingGitignorePatterns)
+    );
+
+
+    if (!newPatternsToAdd.length) return;
+
+    if (!gitignoreExists) {
+      fs.writeFileSync(gitignorePath, newPatternsToAdd.join('\n'));
+      vscode.window.showInformationMessage(`${newPatternsToAdd.join(', ')} added to .gitignore`);
+    } else {
+      const appendContent = '\n' + newPatternsToAdd.join('\n');
+      fs.appendFileSync(gitignorePath, appendContent);
+      vscode.window.showInformationMessage(`${newPatternsToAdd.join(', ')} added to .gitignore`);
+    }
+
   } catch (error) {
-    return vscode.window.showErrorMessage(`Error occurred: ${error}`);
+    return vscode.window.showErrorMessage(`Error occurred: ${error.message}`);
   }
 }
