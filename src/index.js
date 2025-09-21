@@ -45,7 +45,7 @@ exports.extension = async () => {
 
     // ✅ Find which patterns match at least one file
     const matchedPatterns = ignoreItArray.filter(pattern =>
-      workspace.some(file => micromatch.isMatch(file, pattern))
+      workspace.some(file => micromatch.isMatch(file, pattern, { dot: true }))
     );
 
     if (!matchedPatterns.length) return;
@@ -65,9 +65,8 @@ exports.extension = async () => {
 
     // ✅ Filter patterns that are not already in .gitignore
     const newPatternsToAdd = matchedPatterns.filter(
-      pattern => !micromatch.any(pattern, existingGitignorePatterns)
+      pattern => !micromatch.any(pattern, existingGitignorePatterns, { dot: true })
     );
-
 
     if (!newPatternsToAdd.length) return;
 

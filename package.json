@@ -2,7 +2,7 @@
 	"name": "ignoreit",
 	"displayName": "ignoreit",
 	"description": "automatically ignore files and folders",
-	"version": "7.4.2",
+	"version": "7.5.0",
 	"publisher": "marcdomain",
 	"author": "Marcus Chukwuoma <marcus2cu@gmail.com> (https://github.com/marcdomain)",
 	"engines": {
@@ -79,7 +79,7 @@
 				"ignoreit.updateEnvExample": {
 					"type": "boolean",
 					"default": false,
-					"description": "Enable automatic updates to .env.example file"
+					"description": "Enable automatic updates to .env.example file based on truncated .env content"
 				}
 			}
 		}
