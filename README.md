@@ -18,6 +18,14 @@ By default, the following files would be ignored with the help of ignoreit. You 
 "ignoreit.array": [".env", "*.pem"]
 ```
 
+Conditionally enable automatic updates to .env.example file based on truncated .env content
+
+```json
+"ignoreit.updateEnvExample": false
+```
+
+<img width="647" height="287" alt="vscode-settings" src="https://github.com/user-attachments/assets/1edd1e9a-6d3d-4b04-b3c7-3a72d8f01cf1" />
+
 https://user-images.githubusercontent.com/25563661/210540446-48010e02-e50b-4109-bc2f-b92021474824.mp4
 
 * Install and navigate to vscode `settings` or `settings.json` page.
@@ -26,7 +34,7 @@ https://user-images.githubusercontent.com/25563661/210540446-48010e02-e50b-4109-
 * If `.gitignore` file does not exist in your project directory, `ignoreit` extension will create a `.gitignore` file and fill in the files you're to ignore.
 * The `.gitignore` content will be the files in your project directory that corresponds to the `ignoreit.array`
 * You can manually add other files to the `.gitignore` file. New files are always appended to the existing ones.
-* If `.env` file is part of the files in your directory, `ignoreit` extension will create a `.env.example` file and fill it with the the contents of your .env file. Only variables are filled in, values are left behind. The `.env` and `.env.example` files will always be in sync.
+* If `.env` file is part of the files in your directory, `ignoreit` extension will optionally create a `.env.example` file and fill it with the the truncated contents of your .env file, if `"ignoreit.updateEnvExample": true` - only variables are filled in, values are left behind. The `.env` and `.env.example` files will always be in sync.
 * You can use wildcards to specify files ending in certain patterns (example: `"*.pem"`)
 
 ## Extension Settings
