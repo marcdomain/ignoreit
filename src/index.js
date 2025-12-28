@@ -28,17 +28,38 @@ exports.extension = async () => {
       const envExamplePath = path.join(projectWorkspace, '.env.example');
 
       const envContent = fs.readFileSync(envPath, 'utf8');
-      const envContentString = envContent.replace(/[=].*/g, '=');
+
+      // Parse variable names from .env (excluding comments and empty lines)
+      const envVars = envContent
+        .split('\n')
+        .filter(line => line.trim() && !line.trim().startsWith('#'))
+        .map(line => line.split('=')[0].trim())
+        .filter(Boolean);
 
       if (fs.existsSync(envExamplePath)) {
-        const envExample = fs.readFileSync(envExamplePath, 'utf8').split('\n').filter(Boolean);
-        const envContentArray = envContentString.split('\n').filter(Boolean);
+        // Parse existing variable names from .env.example
+        const existingContent = fs.readFileSync(envExamplePath, 'utf8');
+        const existingVars = new Set(
+          existingContent
+            .split('\n')
+            .filter(line => line.trim() && !line.trim().startsWith('#'))
+            .map(line => line.split('=')[0].trim())
+            .filter(Boolean)
+        );
 
-        const isDifferent = envContentArray.some(line => !envExample.includes(line));
-        if (isDifferent) {
-          fs.writeFileSync(envExamplePath, envContentString);
+        // Find new variables not already in .env.example
+        const newVars = envVars.filter(v => !existingVars.has(v));
+
+        if (newVars.length > 0) {
+          // Append only new variables (without values), preserving existing content
+          const newLines = newVars.map(v => `${v}=`).join('\n');
+          const separator = existingContent && !existingContent.endsWith('\n') ? '\n' : '';
+          const updatedContent = existingContent + separator + newLines + '\n';
+          fs.writeFileSync(envExamplePath, updatedContent);
         }
       } else {
+        // Create new .env.example with variable names only (no values)
+        const envContentString = envContent.replace(/[=].*/g, '=');
         fs.writeFileSync(envExamplePath, envContentString);
       }
     }
