@@ -2,7 +2,7 @@
 	"name": "ignoreit",
 	"displayName": "ignoreit",
 	"description": "automatically ignore files and folders",
-	"version": "7.6.1",
+	"version": "7.6.2",
 	"publisher": "marcdomain",
 	"author": "Marcus Chukwuoma <marcus2cu@gmail.com> (https://github.com/marcdomain)",
 	"engines": {
@@ -96,5 +96,8 @@
 	},
 	"dependencies": {
 		"micromatch": "^4.0.8"
+	},
+	"overrides": {
+		"brace-expansion": "^1.1.16"
 	}
 }
