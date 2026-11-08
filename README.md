@@ -26,7 +26,7 @@ Conditionally enable automatic updates to .env.example file based on truncated .
 
 <img width="647" height="287" alt="vscode-settings" src="https://github.com/user-attachments/assets/1edd1e9a-6d3d-4b04-b3c7-3a72d8f01cf1" />
 
-https://user-images.githubusercontent.com/25563661/210540446-48010e02-e50b-4109-bc2f-b92021474824.mp4
+![IGNOREIT demo: set your list once, then .env, node_modules, keys and coverage are ignored as they appear](assets/demo.gif)
 
 * Install and navigate to vscode `settings` or `settings.json` page.
 * Set `"ignoreit.array": [".env", "*.pem"]` to include the files and folders you'd always want to ignore. Feel free to modify it anytime.
